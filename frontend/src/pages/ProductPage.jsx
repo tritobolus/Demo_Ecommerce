@@ -2,11 +2,13 @@ import axios from "axios";
 import  { useEffect, useState } from "react";
 import {  useParams } from "react-router-dom";
 import { IoStar } from "react-icons/io5";
+import { useAuth } from "../context/AuthContext";
 
 export const ProductPage = () => {
   const [product, setProduct] = useState([]);
   const [reviews, setReviews] = useState([]);
   const { productId } = useParams();
+  const {user} = useAuth();
 
   const getProduct = async () => {
     try {
@@ -129,7 +131,8 @@ export const ProductPage = () => {
                 {product.stock > 0 ? "In Stock" : "Out of Stock"}
               </span>
             </p>
-
+            
+            {user == "customer" && (
             <div className="flex justify-between">
               <button onClick={() => addToCart(product.product_id)} className="mt-4 bg-black text-white px-6 py-2 rounded hover:bg-gray-800 w-fit">
                 Add to Cart
@@ -138,6 +141,7 @@ export const ProductPage = () => {
                 Add to Wishlist
               </button>
             </div>
+            )}
           </div>
         </div>
 

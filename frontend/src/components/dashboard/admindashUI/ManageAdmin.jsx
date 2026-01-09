@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { EditAdmin } from './EditAdmin';
 
 export const ManageAdmin = () => {
   const [admins, setAdmins] = useState([]);
@@ -7,6 +8,9 @@ export const ManageAdmin = () => {
   const [sellerAdmins, setSellerAdmins] = useState(false);
   const [customerAdmins, setCustomerAdmins] = useState(false);
   const [superAdmins, setSuperAdmins] = useState(false);
+
+  const [editAdmin, setEditAdmin] = useState(false);
+  const [currentAdminId, setCurrentAdminId] = useState(false);
 
   const getCurrrentAdmin = () => {
     if(allAdmins) {
@@ -19,6 +23,23 @@ export const ManageAdmin = () => {
       return "super_admin"
     }
   }
+
+  useEffect(()=> {
+    console.log(admins)
+  }, [admins]);
+
+
+  //to prevent the background scroll issue when my editAdmin is open
+  useEffect(() => {
+  if (editAdmin) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+  return () => {
+    document.body.style.overflow = "auto";
+  };
+}, [editAdmin]);
   
 
   const getAdmins = async() => {
@@ -63,7 +84,7 @@ export const ManageAdmin = () => {
         </div>
         <div className='overflow-y-auto h-100px flex flex-col gap-y-2'>
           {admins.map((admin) => (
-            <div key={admin.admin_id} className='flex justify-between p-4 rounded-xl bg-white border'>
+            <div key={admin.admin_id} className={`flex justify-between p-4 rounded-xl ${admin.status == "ban" ? "bg-red-100" : "bg-green-100"} border`}>
               <div>
                 <p className='text-xl font-semibold'>{admin.first_name + " " + admin.last_name}</p>
                 <p>Email: {admin.email_id}</p>
@@ -77,7 +98,9 @@ export const ManageAdmin = () => {
                 <p>last update: {admin.created_at}</p>
                 <div className='flex justify-between px-2'>
                   <button className='px-2 py-1 rounded-xl bg-green-300 hover:bg-green-400 transition-all duration-150'>See profile</button>
-                  <button className='px-2 py-1 rounded-xl bg-red-300 hover:bg-red-400 transition-all duration-150'>Edit</button>
+                  <button
+                  onClick={() => {setEditAdmin(true), setCurrentAdminId(admin.admin_id)}}
+                  className='px-2 py-1 rounded-xl bg-red-300 hover:bg-red-400 transition-all duration-150'>Edit</button>
                 </div>
 
               </div>
@@ -86,6 +109,7 @@ export const ManageAdmin = () => {
         </div>
         
       </div>
+      {editAdmin && <EditAdmin setEditAdmin={setEditAdmin} currentAdminId={currentAdminId} admins={admins} getAdmins={getAdmins}/>}
     </>
   )
 }

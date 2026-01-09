@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { states } from "../assets/statesData.js";
+import { INDIAN_STATES } from "../assets/statesData.js";
 import axios from "axios";
 import {Link} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
@@ -210,7 +210,7 @@ export const SignUp = () => {
                   className="border px-2 py-1 rounded-xl w-50 "
                 >
                   <option value="">Select your state</option>
-                  {states.map((state) => (
+                  {INDIAN_STATES.map((state) => (
                     <option className="" key={state} value={state}>
                       {state}
                     </option>
@@ -265,7 +265,7 @@ export const SignUp = () => {
             </button>
           </form>
           <div className="flex mt-2 gap-x-2">
-            <p className="text-gray-600">Don't have any account?</p> 
+            <p className="text-gray-600">Already have account?</p> 
             <Link to='/signin' className="text-blue-500 hover:underline">Sign In</Link>
           </div>
         </div>
