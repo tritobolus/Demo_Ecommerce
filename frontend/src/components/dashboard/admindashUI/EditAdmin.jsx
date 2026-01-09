@@ -45,7 +45,7 @@ export const EditAdmin = ({ setEditAdmin, currentAdminId, admins, getAdmins }) =
 
   return (
     <>
-      <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex justify-center items-center">
+      <div className="fixed inset-0 backdrop-blur-sm  flex justify-center items-center">
         <form onSubmit={handleSubmit} className="p-8 rounded-2xl w-[420px] bg-white shadow-xl">
           <h2 className="text-2xl font-semibold text-center mb-6">
             Edit Admin Details

@@ -10,7 +10,7 @@ export const ManageAdmin = () => {
   const [superAdmins, setSuperAdmins] = useState(false);
 
   const [editAdmin, setEditAdmin] = useState(false);
-  const [currentAdminId, setCurrentAdminId] = useState(false);
+  const [currentAdminId, setCurrentAdminId] = useState(null);
 
   const getCurrrentAdmin = () => {
     if(allAdmins) {
@@ -65,19 +65,19 @@ export const ManageAdmin = () => {
         <h2 className='text-3xl font-semibold'>Manage Admin</h2>
         <hr />
         <div className='flex justify-between'>
-          <div onClick={()=> {setAllAdmins(true),setSuperAdmins(false),setCustomerAdmins(false),setSellerAdmins(false)}}>
+          <div className='hover:cursor-pointer' onClick={()=> {setAllAdmins(true),setSuperAdmins(false),setCustomerAdmins(false),setSellerAdmins(false)}}>
             <p  className='text-2xl font-semibold'>All Admin</p>
             <hr className={`border-2 rounded-4xl ${allAdmins ? "text-black" : "text-gray-400"}`} />
           </div>
-          <div onClick={()=> {setAllAdmins(false),setSuperAdmins(false),setCustomerAdmins(false),setSellerAdmins(true)}}>
+          <div className='hover:cursor-pointer' onClick={()=> {setAllAdmins(false),setSuperAdmins(false),setCustomerAdmins(false),setSellerAdmins(true)}}>
             <p  className='text-2xl font-semibold'>Seller Admin</p>
             <hr className={`border-2 rounded-4xl ${sellerAdmins ? "text-black" : "text-gray-400"}`} />
           </div>
-          <div onClick={()=> {setAllAdmins(false),setSuperAdmins(false),setCustomerAdmins(true),setSellerAdmins(false)}}>
+          <div className='hover:cursor-pointer' onClick={()=> {setAllAdmins(false),setSuperAdmins(false),setCustomerAdmins(true),setSellerAdmins(false)}}>
             <p  className='text-2xl font-semibold'>Customer Admin</p>
             <hr className={`border-2 rounded-4xl ${customerAdmins ? "text-black" : "text-gray-400"}`} />
           </div>
-          <div onClick={()=> {setAllAdmins(false),setSuperAdmins(true),setCustomerAdmins(false),setSellerAdmins(false)}}>
+          <div className='hover:cursor-pointer' onClick={()=> {setAllAdmins(false),setSuperAdmins(true),setCustomerAdmins(false),setSellerAdmins(false)}}>
             <p  className='text-2xl font-semibold'>Super Admin</p>
             <hr className={`border-2 rounded-4xl ${superAdmins ? "text-black" : "text-gray-400"}`} />
           </div>
@@ -97,10 +97,10 @@ export const ManageAdmin = () => {
                
                 <p>last update: {admin.created_at}</p>
                 <div className='flex justify-between px-2'>
-                  <button className='px-2 py-1 rounded-xl bg-green-300 hover:bg-green-400 transition-all duration-150'>See profile</button>
+                  <button className='px-2 py-1 rounded-xl bg-green-300 hover:bg-green-400 transition-all duration-150 hover:cursor-pointer'>See profile</button>
                   <button
                   onClick={() => {setEditAdmin(true), setCurrentAdminId(admin.admin_id)}}
-                  className='px-2 py-1 rounded-xl bg-red-300 hover:bg-red-400 transition-all duration-150'>Edit</button>
+                  className='px-2 py-1 rounded-xl bg-red-300 hover:bg-red-400 transition-all duration-150 hover:cursor-pointer'>Edit</button>
                 </div>
 
               </div>

@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
           setUserId(res.data.userId)
           setUserDetails(res.data.userDetails)
         }
-        console.log(res)
+        // console.log(res)
       } catch (error) {
         console.log(error);
         setAuth(false);
