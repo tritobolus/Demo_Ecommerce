@@ -34,9 +34,6 @@ export const EditSeller = ({
     try {
         const res = await axios.put("http://localhost:5000/seller/edit_seller",
             formData,
-            // {
-            //     withcreadentials: true
-            // }
         );
         console.log(res)
         alert(res.data.message)

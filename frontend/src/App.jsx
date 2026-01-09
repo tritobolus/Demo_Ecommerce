@@ -31,7 +31,7 @@ import {AdminOverview} from './components/dashboard/admindashUI/AdminOverview'
 import {CreateAdmin} from './components/dashboard/admindashUI/CreateAdmin'
 import {ManageAdmin} from './components/dashboard/admindashUI/ManageAdmin'
 import {ManageSeller} from './components/dashboard/admindashUI/ManageSeller'
-import {ManageUser} from './components/dashboard/admindashUI/ManageUser'
+import {ManageCustomer} from './components/dashboard/admindashUI/ManageCustomer'
 import {AdminManageOrders} from './components/dashboard/admindashUI/AdminManageOrders'
 
 
@@ -70,7 +70,7 @@ function App() {
           <Route path="create_admin" element={<CreateAdmin/>}/>
           <Route path="manage_admin" element={<ManageAdmin/>}/>
           <Route path="manage_seller" element={<ManageSeller/>}/>
-          <Route path="manage_user" element={<ManageUser/>}/>
+          <Route path="manage_customer" element={<ManageCustomer/>}/> 
           <Route path="manage_orders" element={<AdminManageOrders/>}/>
         </Route>
       </Routes>

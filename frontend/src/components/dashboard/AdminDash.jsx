@@ -55,7 +55,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
             {/* Manage user */}
             {(userDetails.role == "super_admin" || userDetails.role == "customer_admin") &&
-              <Link to="manage_user" replace className={`flex justify-center rounded hover:scale-103 transition-all duration-150 py-2 px-1  text-white text-xl ${location.pathname === "/admindash/manage_user"  ? "bg-black" : "bg-teal-600"}`}>Manage User</Link>
+              <Link to="manage_customer" replace className={`flex justify-center rounded hover:scale-103 transition-all duration-150 py-2 px-1  text-white text-xl ${location.pathname === "/admindash/manage_customer"  ? "bg-black" : "bg-teal-600"}`}>Manage Customer</Link>
             }  
 
 

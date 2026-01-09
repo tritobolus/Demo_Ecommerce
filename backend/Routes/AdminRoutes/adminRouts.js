@@ -9,7 +9,7 @@ router.get("/get_admins", verifyUser, async(req,res) => {
     const db = await dbConnection();
     try {
         const currentAdmin = req.query.currentAdmin;
-        console.log(currentAdmin)
+        // console.log(currentAdmin)
         const sql1 = "select * from admin";
         const sql2 = "select * from admin where role = ?";
         var admins=[];
@@ -34,7 +34,7 @@ router.put("/edit_admin", async(req,res) => {
     const db = await dbConnection();
     try {
         const formData = req.body;
-        console.log(formData);
+        // console.log(formData);
         const sql = 'update admin set first_name = ?, last_name = ?, phone_no = ?, address = ?, state = ?, pincode = ?, role = ?, status = ? where admin_id = ?';
 
         const rows = await db.query(sql, [formData.first_name, formData.last_name, formData.phone_no, formData.address, formData.state,formData.pincode, formData.role, formData.status, formData.admin_id])
