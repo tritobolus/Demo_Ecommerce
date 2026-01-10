@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaArrowDown, FaArrowLeft } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
+import { EditProductStatus } from "./EditProductStatus";
 
 export const AdminManageOrders = () => {
   const [orders, setOrders] = useState([]);
   const [openOrderId, setOpenOrderId] = useState(null);
   const [items, setItems] = useState([]);
   const [numberOfItemsApproved, setNumberOfItemsApproved] = useState([]);
+  const [edit, setEdit] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState(null);
 
-  
 
   const getOrders = async () => {
     try {
@@ -28,12 +31,8 @@ export const AdminManageOrders = () => {
     getOrders();
   }, []);
 
-  const showProducts = async (orderId) => {
-    if (openOrderId === orderId) {
-      setOpenOrderId(null); // close if already open
-    } else {
-      setOpenOrderId(orderId); // open
-      try {
+  const getProducts = async(orderId) => {
+    try {
         const res = await axios.get(
           "http://localhost:5000/seller/order/get_order_items",
           {
@@ -43,30 +42,22 @@ export const AdminManageOrders = () => {
         );
         console.log(res.data.orderItems);
         setItems(res.data.orderItems);
-        setNumberOfItemsApproved(res.data.numberOfItemsApproved)
+        setNumberOfItemsApproved(res.data.numberOfItemsApproved);
       } catch (error) {
         console.log(error);
       }
+  }
+
+  const showProducts = async (orderId) => {
+    if (openOrderId === orderId) {
+      setOpenOrderId(null); // close if already open
+    } else {
+      setOpenOrderId(orderId); // open
+      getProducts(orderId);
     }
   };
 
-  const handleStatusChange = async(orderId, status) => {
-    try {
-       const res = await axios.put(`http://localhost:5000/seller/order/update_order_status`,
-        { 
-          status: status,
-          orderId: orderId
-         },
-        { withCredentials: true }
-      );
 
-      console.log(res)
-      getOrders();
-    } catch (error) {
-      console.log(error)
-      
-    }
-  }
 
   return (
     <div className="p-5 h-screen flex flex-col gap-y-3">
@@ -104,7 +95,7 @@ export const AdminManageOrders = () => {
               <div className="flex gap-x-2 items-center">
                 <label>Order Status:</label>
 
-                <select
+                {/* <select
                   value={order.order_status}
                   onChange={(e) =>
                     handleStatusChange(order.order_id, e.target.value)
@@ -112,7 +103,7 @@ export const AdminManageOrders = () => {
                   className={`border px-2 py-1 rounded ${
                     order.order_status === "pending"
                       ? "text-orange-400"
-                      : order.order_status === "processing" 
+                      : order.order_status === "processing"
                       ? "text-yellow-500"
                       : order.order_status === "shipped"
                       ? "text-blue-500"
@@ -120,43 +111,60 @@ export const AdminManageOrders = () => {
                       ? "text-green-500"
                       : "text-red-500"
                   }`}
-                > 
-                  
+                >
                   {order.order_status !== "delivered" && (
-            
-             <>
-               <option value="pending">Pending</option>
-              <option value="processing">Processing</option>
+                    <>
+                      <option value="pending">Pending</option>
+                      <option value="processing">Processing</option>
 
-              {items.length === numberOfItemsApproved && (
-                <>
-                  <option value="shipped">Shipped</option>
-                </>
-              )}
+                      {items.length === numberOfItemsApproved && (
+                        <>
+                          <option value="shipped">Shipped</option>
+                        </>
+                      )}
 
-              <option value="cancelled">Cancelled</option>
-             </>
-          )}
-          {items.length === numberOfItemsApproved && (
-            <>
-              <option value="delivered">Delivered</option>
-            </>
-          )}
-            </select>
-
+                      <option value="cancelled">Cancelled</option>
+                    </>
+                  )}
+                  {order.order_status == "delivered" && (
+                    <>
+                      <option value="delivered">Delivered</option>
+                    </>
+                  )}
+                </select> */}
+               <div className="flex justify-center items-center gap-x-3">
+                 <p 
+                  className={`border px-2 py-1 rounded ${
+                    order.order_status === "pending"
+                      ? "text-orange-400"
+                      : order.order_status === "processing"
+                      ? "text-yellow-500"
+                      : order.order_status === "shipped"
+                      ? "text-blue-500"
+                      : order.order_status === "delivered"
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
+                  {order.order_status}
+                </p>
+                  {/* to handle status of the product */}
+                  <CiEdit onClick={() => {setEdit(true), setCurrentOrderId(order.order_id)}} size={25} className="hover:scale-105 hover:shadow-2xl transition-all duration-100"/>
+                    
+               </div>
               </div>
             </div>
             <div className="flex gap-x-1">
               <label>Total Amount:</label>
               <p className="font-semibold">{order.total_amount}/-</p>
             </div>
-            
+
             <div className="flex justify-between mt-2">
               <div className="flex gap-x-1">
-              <label>Deliver to :</label>
-              <p>{order.delivery_address},</p>
-              <p>Kol-{order.pincode}</p>
-            </div>
+                <label>Deliver to :</label>
+                <p>{order.delivery_address},</p>
+                <p>Kol-{order.pincode}</p>
+              </div>
               <button
                 onClick={() => showProducts(order.order_id)}
                 className="hover:scale-102 active:scale-98 hover:underline transition-all duration-100 flex justify-center items-center gap-x-1"
@@ -207,7 +215,9 @@ export const AdminManageOrders = () => {
                     </p>
                     <p
                       className={`flex items-center justify-center ${
-                        item.status == "pending" ? "text-red-500" : "text-green-500"
+                        item.status == "pending"
+                          ? "text-red-500"
+                          : "text-green-500"
                       }`}
                     >
                       {item.status}
@@ -219,6 +229,7 @@ export const AdminManageOrders = () => {
           </div>
         ))}
       </div>
+        {edit && <EditProductStatus setEdit={setEdit} getProducts={getProducts} numberOfItemsApproved={numberOfItemsApproved} orderId = {currentOrderId} orders={orders} items={items} getOrders={getOrders}  />}
     </div>
   );
 };
