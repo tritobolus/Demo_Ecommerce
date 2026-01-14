@@ -33,13 +33,14 @@ import {ManageAdmin} from './components/dashboard/admindashUI/ManageAdmin'
 import {ManageSeller} from './components/dashboard/admindashUI/ManageSeller'
 import {ManageCustomer} from './components/dashboard/admindashUI/ManageCustomer'
 import {AdminManageOrders} from './components/dashboard/admindashUI/AdminManageOrders'
+import { Layout } from "./pages/Layout";
 
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Layout />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path ="/cart" element={<Cart/>}/>

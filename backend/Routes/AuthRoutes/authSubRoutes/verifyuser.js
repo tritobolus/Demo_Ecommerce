@@ -8,8 +8,8 @@ router.get('/', verifyUser, async(req, res) => {
     const db = await dbConnection();
 
     try {
-        console.log("user: ",req.user)
-        console.log("user id: ",req.userId)
+        // console.log("user: ",req.user)
+        // console.log("user id: ",req.userId)
         const SQL = `SELECT * FROM ${req.user} WHERE ${req.user}_id = ? `
         const [userDetails] = await db.query(SQL,[req.userId])
 

@@ -44,6 +44,8 @@ router.put("/edit_admin", async(req,res) => {
     } catch (error) {
         console.log(error) 
         return res.status(500).json({message:"Iternal Servr Error"})
+    }finally{
+        await db.end()
     }
 })
 

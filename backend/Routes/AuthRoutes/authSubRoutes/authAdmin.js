@@ -52,7 +52,9 @@ router.post("/signup", async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal server Error" });
-  }
+  }finally{
+        await db.end()
+    }
 });
 
 
@@ -93,6 +95,8 @@ router.post('/signin', async (req, res) => {
     } catch (error) {
         console.log(error)
         return res.status(500).json({message: "Internal server Error"});
+    }finally{
+        await db.end()
     }
 })
 

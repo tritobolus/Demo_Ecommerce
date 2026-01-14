@@ -20,6 +20,8 @@ router.get("/getproducts", async(req,res) => {
     } catch (error) {
         console.log(error)
         return res.status(500).json({message:"Internal Server Error"});
+    } finally{
+        await db.end();
     }
 })
 
@@ -46,6 +48,8 @@ router.get("/get_single_product", async(req,res) => {
     } catch (error) {
         console.log(error)
         return res.status(500).json({message:"Internal Server Error"});
+    } finally{
+        await db.end()
     }
 })
 
@@ -70,6 +74,8 @@ router.get("/get_reviews", async(req,res) => {
     } catch (error) {
         console.log(error)
         return res.status(500).json({message:"Internal Server Error"});
+    }finally{
+        await db.end()
     }
 })
 
